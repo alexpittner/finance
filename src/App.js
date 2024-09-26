@@ -20,8 +20,9 @@ function App() {
     loadUser();
   }, []);
 
-  const handleAuthComplete = () => {
-    getCurrentUser().then(setUser);
+  const handleAuthComplete = async () => {
+    const currentUser = await getCurrentUser();
+    setUser(currentUser);
   };
 
   const handleSignOut = () => {
@@ -42,7 +43,7 @@ function App() {
         <Sidebar />
         <div className="main-content">
           <div className="header">
-            <ProfileMenu onSignOut={handleSignOut} />
+            <ProfileMenu user={user} onSignOut={handleSignOut} />
           </div>
           <Routes>
             <Route path="/" element={<Dashboard />} />

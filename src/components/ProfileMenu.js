@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signOut } from '../supabaseClient';
 
-const ProfileMenu = ({ onSignOut }) => {
+const ProfileMenu = ({ user, onSignOut }) => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log('User object:', user);
+  }, [user]);
 
   const handleSignOut = async () => {
     try {
@@ -16,8 +20,14 @@ const ProfileMenu = ({ onSignOut }) => {
     }
   };
 
+  const firstName = user?.user_metadata?.first_name || '';
+  const lastName = user?.user_metadata?.last_name || '';
+  const fullName = `${firstName} ${lastName}`.trim();
+  const displayName = fullName || user?.email || 'User';
+
   return (
     <div className="profile-menu">
+      <span className="user-name">{displayName}</span>
       <div className="profile-icon" onClick={() => setIsOpen(!isOpen)}>
         <img src="/path/to/profile-icon.png" alt="Profile" />
       </div>
