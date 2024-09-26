@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  display: flex;
+  height: 100vh;
 }
 
 .App-logo {
@@ -35,4 +37,50 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.sidebar {
+  width: 200px;
+  background-color: #f0f0f0;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin-bottom: 10px;
+}
+
+.sidebar a {
+  text-decoration: none;
+  color: #333;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.sidebar nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar nav ul li {
+  margin: 10px 0;
+}
+
+.sidebar nav ul li a {
+  text-decoration: none;
+  color: black;
+}
+
+.sidebar nav ul li a.active {
+  font-weight: bold;
+  color: blue;
 }
