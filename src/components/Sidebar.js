@@ -1,19 +1,7 @@
 import React from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { signOut } from '../supabaseClient';
+import { NavLink } from 'react-router-dom';
 
 const Sidebar = () => {
-  const navigate = useNavigate();
-
-  const handleSignOut = async () => {
-    try {
-      await signOut();
-      navigate('/auth'); // Redirect to the auth page after sign-out
-    } catch (error) {
-      console.error('Error signing out:', error);
-    }
-  };
-
   return (
     <div className="sidebar">
       <nav>
@@ -50,7 +38,6 @@ const Sidebar = () => {
           </li>
         </ul>
       </nav>
-      <button onClick={handleSignOut}>Sign Out</button>
     </div>
   );
 };

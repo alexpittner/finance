@@ -1,15 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { getCurrentUser } from './supabaseClient';
-import Onboarding from './components/Onboarding';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { getCurrentUser } from './supabaseClient';
+import AuthPage from './components/AuthPage';
 import Sidebar from './components/Sidebar';
 import Dashboard from './components/Dashboard';
-import AddEmployee from './components/AddEmployee';
-import Scenarios from './components/Scenarios';
-import MyCompany from './components/MyCompany';
-import ManageExpenseCategories from './components/ManageExpenseCategories';
-import Reports from './components/Reports';
-import Auth from './components/Auth';
+import ProfileMenu from './components/ProfileMenu';
 import './App.css';
 
 function App() {
@@ -25,9 +20,12 @@ function App() {
     loadUser();
   }, []);
 
-  const handleOnboardingComplete = () => {
-    // Reload the user data after onboarding
+  const handleAuthComplete = () => {
     getCurrentUser().then(setUser);
+  };
+
+  const handleSignOut = () => {
+    setUser(null);
   };
 
   if (loading) {
@@ -35,33 +33,23 @@ function App() {
   }
 
   if (!user) {
-    return <Onboarding onComplete={handleOnboardingComplete} />;
+    return <AuthPage onAuthComplete={handleAuthComplete} />;
   }
 
   return (
     <Router>
       <div className="app">
-        {user ? (
-          <>
-            <Sidebar />
-            <div className="content">
-              <Routes>
-                <Route path="/" element={<Dashboard />} />
-                <Route path="/add-employee" element={<AddEmployee />} />
-                <Route path="/scenarios" element={<Scenarios />} />
-                <Route path="/my-company" element={<MyCompany />} />
-                <Route path="/manage-expense-categories" element={<ManageExpenseCategories />} />
-                <Route path="/reports" element={<Reports />} />
-                <Route path="/auth" element={<Navigate to="/" replace />} />
-              </Routes>
-            </div>
-          </>
-        ) : (
+        <Sidebar />
+        <div className="main-content">
+          <div className="header">
+            <ProfileMenu onSignOut={handleSignOut} />
+          </div>
           <Routes>
-            <Route path="/auth" element={<Auth />} />
-            <Route path="*" element={<Navigate to="/auth" replace />} />
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/auth" element={<Navigate to="/" replace />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
-        )}
+        </div>
       </div>
     </Router>
   );
