@@ -1,41 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { signOut } from '../supabaseClient';
 
-const ProfileMenu = ({ user, onSignOut }) => {
-  const [isOpen, setIsOpen] = useState(false);
+const ProfileMenu = () => {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log('User object:', user);
-  }, [user]);
-
-  const handleSignOut = async () => {
-    try {
-      await signOut();
-      onSignOut();
-      navigate('/auth'); // Redirect to the auth page after sign-out
-    } catch (error) {
-      console.error('Error signing out:', error);
-    }
+  const handleSignOut = () => {
+    console.log('Signing out...');
+    navigate('/auth');
   };
-
-  const firstName = user?.user_metadata?.first_name || '';
-  const lastName = user?.user_metadata?.last_name || '';
-  const fullName = `${firstName} ${lastName}`.trim();
-  const displayName = fullName || user?.email || 'User';
 
   return (
     <div className="profile-menu">
-      <span className="user-name">{displayName}</span>
-      <div className="profile-icon" onClick={() => setIsOpen(!isOpen)}>
-        <img src="/path/to/profile-icon.png" alt="Profile" />
-      </div>
-      {isOpen && (
-        <div className="dropdown-menu">
-          <button onClick={handleSignOut}>Sign Out</button>
-        </div>
-      )}
+      <ul>
+        <li><button onClick={() => navigate('/dashboard/profile')}><i className="fas fa-user"></i> Profile</button></li>
+        <li><button onClick={() => navigate('/dashboard/settings')}><i className="fas fa-cog"></i> Settings</button></li>
+        <li><button onClick={handleSignOut}><i className="fas fa-sign-out-alt"></i> Sign Out</button></li>
+      </ul>
     </div>
   );
 };

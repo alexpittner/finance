@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { signUp, signIn } from '../supabaseClient';
+import { useNavigate } from 'react-router-dom';
 
-const AuthPage = ({ onAuthComplete }) => {
-  const [isSignUp, setIsSignUp] = useState(false);
+const AuthPage = () => {
+  console.log('AuthPage rendering');
+  const [isSignUp, setIsSignUp] = useState(true);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,10 +19,11 @@ const AuthPage = ({ onAuthComplete }) => {
     try {
       if (isSignUp) {
         await signUp(email, password, firstName, lastName);
+        navigate('/onboarding');
       } else {
         await signIn(email, password);
+        navigate('/dashboard');
       }
-      onAuthComplete();
     } catch (err) {
       setError(err.message);
     }
@@ -65,7 +69,7 @@ const AuthPage = ({ onAuthComplete }) => {
         <button type="submit">{isSignUp ? 'Sign Up' : 'Log In'}</button>
       </form>
       <p>
-        {isSignUp ? 'Already have an account?' : "Don't have an account?"}{' '}
+        {isSignUp ? 'Already have an account? ' : 'Don\'t have an account? '}
         <button onClick={() => setIsSignUp(!isSignUp)}>
           {isSignUp ? 'Log In' : 'Sign Up'}
         </button>

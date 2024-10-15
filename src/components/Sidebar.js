@@ -1,44 +1,18 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen, toggleSidebar }) => {
   return (
-    <div className="sidebar">
-      <nav>
-        <ul>
-          <li>
-            <NavLink to="/" end>
-              Dashboard
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/add-employee">
-              Add Employee
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/scenarios">
-              Scenarios
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/my-company">
-              My Company
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/manage-expense-categories">
-              Manage Expense Categories
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/reports">
-              Reports
-            </NavLink>
-          </li>
-        </ul>
-      </nav>
-    </div>
+    <nav className={`sidebar ${isOpen ? 'open' : 'closed'}`}>
+      <button onClick={toggleSidebar} className="close-sidebar">
+        <i className="fas fa-times"></i>
+      </button>
+      <ul>
+        <li><NavLink to="/dashboard" end><i className="fas fa-home"></i> Dashboard</NavLink></li>
+        <li><NavLink to="/dashboard/profile"><i className="fas fa-user"></i> Profile</NavLink></li>
+        <li><NavLink to="/dashboard/settings"><i className="fas fa-cog"></i> Settings</NavLink></li>
+      </ul>
+    </nav>
   );
 };
 
