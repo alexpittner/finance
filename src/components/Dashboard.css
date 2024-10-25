@@ -1,0 +1,62 @@
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+}
+
+.dashboard-content {
+  flex-grow: 1;
+  transition: margin-left 0.3s ease;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-content.sidebar-open {
+  margin-left: 250px;
+}
+
+.dashboard-content.sidebar-collapsed {
+  margin-left: 60px;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
+
+.sidebar-toggle {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #333;
+  padding: 0.5rem;
+  margin-right: 1rem;
+}
+
+.profile-menu-container {
+  position: relative;
+}
+
+.dashboard-main {
+  padding: 2rem;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .dashboard-content.sidebar-open,
+  .dashboard-content.sidebar-collapsed {
+    margin-left: 0;
+  }
+  
+  .sidebar-toggle {
+    display: none;
+  }
+}

@@ -1,0 +1,21 @@
+.profile-container {
+  padding: 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.profile-info {
+  background-color: #f5f5f5;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profile-info p {
+  margin-bottom: 1rem;
+}
+
+.profile-info strong {
+  display: inline-block;
+  width: 100px;
+}
